@@ -3,7 +3,7 @@ local metadata =
 	plugin =
 	{
 		format = 'staticLibrary',
-		staticLibs = { 'plugin_library', },
+		staticLibs = { 'plugin_SibcheStoreKit', },
 		frameworks = {},
 		frameworksOptional = {},
 		-- usesSwift = true,

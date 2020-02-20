@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		9195FB8923FE76E6007BBE23 /* _CoronaSplashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8423FE76E6007BBE23 /* _CoronaSplashScreen.png */; };
 		9195FB8A23FE76E6007BBE23 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8523FE76E6007BBE23 /* MainWindow.xib */; };
 		9195FB8B23FE76E6007BBE23 /* CoronaResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8623FE76E6007BBE23 /* CoronaResources.bundle */; };
 		9195FB8C23FE76E6007BBE23 /* Corona3rdPartyLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8723FE76E6007BBE23 /* Corona3rdPartyLicenses.txt */; };
@@ -87,7 +86,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9195FB8423FE76E6007BBE23 /* _CoronaSplashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = _CoronaSplashScreen.png; sourceTree = "<group>"; };
 		9195FB8523FE76E6007BBE23 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		9195FB8623FE76E6007BBE23 /* CoronaResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CoronaResources.bundle; sourceTree = "<group>"; };
 		9195FB8723FE76E6007BBE23 /* Corona3rdPartyLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Corona3rdPartyLicenses.txt; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 		9195FB8323FE76E6007BBE23 /* resource */ = {
 			isa = PBXGroup;
 			children = (
-				9195FB8423FE76E6007BBE23 /* _CoronaSplashScreen.png */,
 				9195FB8523FE76E6007BBE23 /* MainWindow.xib */,
 				9195FB8623FE76E6007BBE23 /* CoronaResources.bundle */,
 				9195FB8723FE76E6007BBE23 /* Corona3rdPartyLicenses.txt */,
@@ -397,7 +394,6 @@
 				9195FB8A23FE76E6007BBE23 /* MainWindow.xib in Resources */,
 				F5C9F4811ED39AD100D34A2D /* _CoronaSplashScreen.png in Resources */,
 				C22C1E4B1E981D9000D74196 /* LaunchScreen.storyboardc in Resources */,
-				9195FB8923FE76E6007BBE23 /* _CoronaSplashScreen.png in Resources */,
 				9195FB8B23FE76E6007BBE23 /* CoronaResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,7 +458,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Ensures that next attempt to build actually rebuilds the executable so it can be (re)app_sign(ed)\necho \"Updating modification time of $PROJECT_DIR/main.mm to trigger relink of $BUILT_PRODUCTS_DIR/$EXECUTABLE_PATH\"\necho \"We need to do this b/c app_sign can only sign an unsigned executable.\"\ntouch \"$PROJECT_DIR/main.mm\"";
+			shellScript = "# Ensures that next attempt to build actually rebuilds the executable so it can be (re)app_sign(ed)\necho \"Updating modification time of $PROJECT_DIR/main.mm to trigger relink of $BUILT_PRODUCTS_DIR/$EXECUTABLE_PATH\"\necho \"We need to do this b/c app_sign can only sign an unsigned executable.\"\ntouch \"$PROJECT_DIR/main.mm\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C28A3B451EE9F8FD00F08609 /* Corona Native */ = {

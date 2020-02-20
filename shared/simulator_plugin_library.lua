@@ -1,7 +1,7 @@
 local Library = require "CoronaLibrary"
 
 -- Create stub library for simulator
-local lib = Library:new{ name='plugin.library', publisherId='com.mycompany' }
+local lib = Library:new{ name='plugin.SibcheStoreKit', publisherId='com.sibche' }
 
 -- Default implementations
 local function defaultFunction()
