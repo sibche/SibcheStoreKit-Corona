@@ -7,20 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91E705912402B3F600BBC90A /* SibcheStoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E705902402B3F500BBC90A /* SibcheStoreKit.framework */; };
 		A4E253C9166D716900DCDC2C /* PluginSibcheStoreKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = A447B617165D734C009EA762 /* PluginSibcheStoreKit.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		91A86B5824004CE0002A9E3F /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A4E253B4166D6FB300DCDC2C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,6 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		91E705902402B3F500BBC90A /* SibcheStoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SibcheStoreKit.framework; path = EmbeddedFrameworks/SibcheStoreKit.framework; sourceTree = "<group>"; };
 		A447B616165D734C009EA762 /* PluginSibcheStoreKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PluginSibcheStoreKit.h; path = Plugin/PluginSibcheStoreKit.h; sourceTree = "<group>"; };
 		A447B617165D734C009EA762 /* PluginSibcheStoreKit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PluginSibcheStoreKit.mm; path = Plugin/PluginSibcheStoreKit.mm; sourceTree = "<group>"; };
 		A4E253B6166D6FB300DCDC2C /* libplugin_SibcheStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libplugin_SibcheStoreKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91E705912402B3F600BBC90A /* SibcheStoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +55,7 @@
 		A484110E15114F700074BD57 = {
 			isa = PBXGroup;
 			children = (
+				91E705902402B3F500BBC90A /* SibcheStoreKit.framework */,
 				A447B609165D72A6009EA762 /* Source */,
 				F54A40C01EE083A300AF417D /* CoronaNative */,
 				A484111A15114F700074BD57 /* Products */,
@@ -95,7 +89,6 @@
 				A4E253B2166D6FB300DCDC2C /* Sources */,
 				A4E253B3166D6FB300DCDC2C /* Frameworks */,
 				A4E253B4166D6FB300DCDC2C /* CopyFiles */,
-				91A86B5824004CE0002A9E3F /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -251,12 +244,10 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/EmbeddedFrameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -272,12 +263,10 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/EmbeddedFrameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

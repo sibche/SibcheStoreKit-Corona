@@ -14,6 +14,11 @@ end
 
 library.init( listener )
 
+timer.performWithDelay( 3000, function()
+	library.show( "Hello" )
+end )
+
+
 local tapCount = 0
 
 display.setStatusBar( display.HiddenStatusBar )

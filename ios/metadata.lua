@@ -4,7 +4,7 @@ local metadata =
 	{
 		format = 'staticLibrary',
 		staticLibs = { 'plugin_SibcheStoreKit', },
-		frameworks = { 'SibcheStoreKit' },
+		frameworks = {},
 		frameworksOptional = {},
 		-- usesSwift = true,
 	},

@@ -61,6 +61,7 @@
 		C22C1E4B1E981D9000D74196 /* LaunchScreen.storyboardc in Resources */ = {isa = PBXBuildFile; fileRef = C22C1E4A1E981D9000D74196 /* LaunchScreen.storyboardc */; };
 		E640B2F21BFC00B00031FAE9 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E640B2F11BFC00B00031FAE9 /* AssetsLibrary.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E640B2F41BFC00BA0031FAE9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E640B2F31BFC00BA0031FAE9 /* Photos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F51C66D61EE0D3B20040E4BE /* libplugin_SibcheStoreKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4E253E2166DE7C800DCDC2C /* libplugin_SibcheStoreKit.a */; };
 		F56457D91FA108F500EC8C29 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F56712391F73451B006B502D /* Images.xcassets */; };
 		F5BB41531BC42ACF0033F6FA /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BB41521BC42ACF0033F6FA /* CoreText.framework */; };
 		F5C9F4811ED39AD100D34A2D /* _CoronaSplashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = C277D3B51EBB9F8E00966BA1 /* _CoronaSplashScreen.png */; };
@@ -68,17 +69,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		91A86B852401B0C0002A9E3F /* PBXContainerItemProxy */ = {
+		A4E253E1166DE7C800DCDC2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 91A86B812401B0C0002A9E3F /* Plugin.xcodeproj */;
+			containerPortal = A4E253DA166DE7C800DCDC2C /* Plugin.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A4E253B6166D6FB300DCDC2C;
-			remoteInfo = plugin_SibcheStoreKit;
+			remoteInfo = plugin_library;
+		};
+		A4E253E3166DE7D800DCDC2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A4E253DA166DE7C800DCDC2C /* Plugin.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A4E253B5166D6FB300DCDC2C;
+			remoteInfo = plugin_library;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		91A86B6824015FCC002A9E3F /* Embed Frameworks */ = {
+		91E7058E2402B3A300BBC90A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -95,7 +103,6 @@
 		9195FB8623FE76E6007BBE23 /* CoronaResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CoronaResources.bundle; sourceTree = "<group>"; };
 		9195FB8723FE76E6007BBE23 /* Corona3rdPartyLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Corona3rdPartyLicenses.txt; sourceTree = "<group>"; };
 		9195FB8823FE76E6007BBE23 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iPad.xib"; sourceTree = "<group>"; };
-		91A86B812401B0C0002A9E3F /* Plugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Plugin.xcodeproj; sourceTree = "<group>"; };
 		A447B60E165D72FB009EA762 /* AppCoronaDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCoronaDelegate.h; sourceTree = SOURCE_ROOT; };
 		A447B60F165D72FB009EA762 /* AppCoronaDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppCoronaDelegate.mm; sourceTree = SOURCE_ROOT; };
 		A447B824166856F3009EA762 /* main.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.lua; path = ../Corona/main.lua; sourceTree = SOURCE_ROOT; };
@@ -134,6 +141,7 @@
 		A4C244971683FA5300C395D1 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		A4C244991683FA5300C395D1 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		A4E2537E166AE3DC00DCDC2C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		A4E253DA166DE7C800DCDC2C /* Plugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Plugin.xcodeproj; sourceTree = "<group>"; };
 		C22C1E4A1E981D9000D74196 /* LaunchScreen.storyboardc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.storyboardc; name = LaunchScreen.storyboardc; path = ../Corona/LaunchScreen.storyboardc; sourceTree = "<group>"; };
 		C277D3B51EBB9F8E00966BA1 /* _CoronaSplashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = _CoronaSplashScreen.png; sourceTree = "<group>"; };
 		E640B2F11BFC00B00031FAE9 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -152,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F51C66D61EE0D3B20040E4BE /* libplugin_SibcheStoreKit.a in Frameworks */,
 				E640B2F41BFC00BA0031FAE9 /* Photos.framework in Frameworks */,
 				E640B2F21BFC00B00031FAE9 /* AssetsLibrary.framework in Frameworks */,
 				F5BB41531BC42ACF0033F6FA /* CoreText.framework in Frameworks */,
@@ -203,14 +212,6 @@
 			path = resource;
 			sourceTree = "<group>";
 		};
-		91A86B822401B0C0002A9E3F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				91A86B862401B0C0002A9E3F /* libplugin_SibcheStoreKit.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		A447B66F16670015009EA762 /* CoronaNative */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,7 +235,7 @@
 		A484110E15114F700074BD57 = {
 			isa = PBXGroup;
 			children = (
-				91A86B812401B0C0002A9E3F /* Plugin.xcodeproj */,
+				A4E253DA166DE7C800DCDC2C /* Plugin.xcodeproj */,
 				A484112715114F700074BD57 /* App */,
 				A447B823166856C7009EA762 /* Corona */,
 				A447B66F16670015009EA762 /* CoronaNative */,
@@ -308,6 +309,14 @@
 			name = App;
 			sourceTree = "<group>";
 		};
+		A4E253DB166DE7C800DCDC2C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A4E253E2166DE7C800DCDC2C /* libplugin_SibcheStoreKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -323,11 +332,12 @@
 				A484118B15128E320074BD57 /* build.settings to Info.plist */,
 				A484118F1512906B0074BD57 /* Certify Corona Build */,
 				A484119015129A930074BD57 /* Touch main.mm to ensure build */,
-				91A86B6824015FCC002A9E3F /* Embed Frameworks */,
+				91E7058E2402B3A300BBC90A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A4E253E4166DE7D800DCDC2C /* PBXTargetDependency */,
 			);
 			name = App;
 			productName = App;
@@ -364,8 +374,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 91A86B822401B0C0002A9E3F /* Products */;
-					ProjectRef = 91A86B812401B0C0002A9E3F /* Plugin.xcodeproj */;
+					ProductGroup = A4E253DB166DE7C800DCDC2C /* Products */;
+					ProjectRef = A4E253DA166DE7C800DCDC2C /* Plugin.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -377,11 +387,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		91A86B862401B0C0002A9E3F /* libplugin_SibcheStoreKit.a */ = {
+		A4E253E2166DE7C800DCDC2C /* libplugin_SibcheStoreKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libplugin_SibcheStoreKit.a;
-			remoteRef = 91A86B852401B0C0002A9E3F /* PBXContainerItemProxy */;
+			remoteRef = A4E253E1166DE7C800DCDC2C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -510,6 +520,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A4E253E4166DE7D800DCDC2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = plugin_library;
+			targetProxy = A4E253E3166DE7D800DCDC2C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		A484112A15114F700074BD57 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -619,7 +637,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mycompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -646,7 +663,6 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mycompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
