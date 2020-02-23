@@ -45,7 +45,19 @@ settings =
 		["plugin.OneSignal"] =
 		{
 			publisherId = "com.onesignal",
-		}
+		},
+        ["plugin.supersonic"] =
+        {
+            publisherId = "com.coronalabs"
+        },
+        ["plugin.appsflyer"] =
+        {
+            publisherId = "com.coronalabs"
+        },		
+		--["plugin.SibcheStoreKit"] =
+        --{
+        --    publisherId = "com.sibche",
+        --}
 	},
 
 	--

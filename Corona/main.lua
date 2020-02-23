@@ -6,18 +6,13 @@
 
 -- 
 
--- local library = require "plugin.SibcheStoreKit"
+local library = require "plugin.SibcheStoreKit"
 
--- local function listener( event )
--- 	print( "Received event from Library plugin (" .. event.name .. "): ", event.message )
--- end
+local function listener( event )
+	print( "Received event from Library plugin (" .. event.name .. "): ", event.message )
+end
 
--- library.init( listener )
-
--- timer.performWithDelay( 2000, function()
--- 	library.show( "corona" )
--- end )
-
+library.init( listener )
 
 local tapCount = 0
 
