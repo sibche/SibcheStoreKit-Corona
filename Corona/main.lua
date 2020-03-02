@@ -6,18 +6,77 @@
 
 -- 
 
-local library = require "plugin.SibcheStoreKit"
+local json = require "json"
+local inspect = require "inspect"
+local SibcheStoreKit = require "sibche.wrapper"
 
-local function listener( event )
-	print( "Received event from Library plugin (" .. event.name .. "): ", event.message )
+SibcheStoreKit.init("wnl6qrLmgNadY3kK3MWz5QkAo7OEXe", "testapp")
+
+local function loginCallback( event )
+    print(inspect(event))
 end
 
-library.init( listener )
+local function logoutCallback( event )
+    print(inspect(event))
+end
+
+local function fetchInAppPurchasePackagesCallback( event )
+    print(inspect(event))
+end
+
+local function fetchInAppPurchasePackageCallback( event )
+    print(inspect(event))
+end
+
+local function fetchActiveInAppPurchasePackagesCallback( event )
+    print(inspect(event))
+end
+
+local function consumePurchasePackageCallback( event )
+    print(inspect(event))
+end
+
+local function purchasePackageCallback( event )
+    print(inspect(event))
+    if(event.isSuccessful and event.purchasePackage) then
+        if(event.purchasePackage.package.type == "ConsumableInAppPackage") then
+            SibcheStoreKit.consumePurchasePackage(event.purchasePackage.purchasePackageId, consumePurchasePackageCallback)
+        end
+    end
+end
+
+local function getCurrentUserCallback( event )
+    print(inspect(event))
+end
+
+-- timer.performWithDelay( 100, function()
+--     SibcheStoreKit.logoutUser(logoutCallback);
+-- end )
+
+-- timer.performWithDelay( 1000, function()
+--     SibcheStoreKit.loginUser(loginCallback);
+-- end )
+
+-- timer.performWithDelay( 1000, function()
+--     SibcheStoreKit.fetchInAppPurchasePackages(fetchInAppPurchasePackagesCallback)
+-- end )
+
+-- timer.performWithDelay( 2000, function()
+--     SibcheStoreKit.fetchInAppPurchasePackage("1", fetchInAppPurchasePackageCallback)
+-- end )
+
+
+-- timer.performWithDelay( 3000, function()
+--     SibcheStoreKit.fetchActiveInAppPurchasePackages(fetchActiveInAppPurchasePackagesCallback)
+-- end )
 
 timer.performWithDelay( 3000, function()
-	library.show( "Hello" )
+    SibcheStoreKit.purchasePackage("1", purchasePackageCallback)
 end )
 
+timer.performWithDelay( 1000, function()
+    SibcheStoreKit.getCurrentUserData(getCurrentUserCallback)
+end )
 
 local tapCount = 0
 
