@@ -9,6 +9,7 @@
 
 #import <CoronaRuntime.h>
 #import <CoronaLua.h>
+#import <SibcheStoreKit/SibcheStoreKit.h>
 
 @implementation AppCoronaDelegate
 
@@ -21,6 +22,7 @@
 }
 
 #pragma mark UIApplicationDelegate methods
+
 
 // The following are stubs for common delegate methods. Uncomment and implement
 // the ones you wish to be called. Or add additional delegate methods that

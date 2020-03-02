@@ -25,6 +25,8 @@
 		9195FB8B23FE76E6007BBE23 /* CoronaResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8623FE76E6007BBE23 /* CoronaResources.bundle */; };
 		9195FB8C23FE76E6007BBE23 /* Corona3rdPartyLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8723FE76E6007BBE23 /* Corona3rdPartyLicenses.txt */; };
 		9195FB8D23FE76E6007BBE23 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8823FE76E6007BBE23 /* MainWindow-iPad.xib */; };
+		91E705952402FCB200BBC90A /* SibcheStoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E705932402FC8500BBC90A /* SibcheStoreKit.framework */; };
+		91E705962402FCB200BBC90A /* SibcheStoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91E705932402FC8500BBC90A /* SibcheStoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A447B610165D72FB009EA762 /* AppCoronaDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A447B60F165D72FB009EA762 /* AppCoronaDelegate.mm */; };
 		A46885F218068C2200381941 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A484112315114F700074BD57 /* GLKit.framework */; };
 		A46885F418068C2900381941 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A46885F318068C2900381941 /* CoreVideo.framework */; };
@@ -92,6 +94,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				91E705962402FCB200BBC90A /* SibcheStoreKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,6 +106,7 @@
 		9195FB8623FE76E6007BBE23 /* CoronaResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CoronaResources.bundle; sourceTree = "<group>"; };
 		9195FB8723FE76E6007BBE23 /* Corona3rdPartyLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Corona3rdPartyLicenses.txt; sourceTree = "<group>"; };
 		9195FB8823FE76E6007BBE23 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		91E705932402FC8500BBC90A /* SibcheStoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SibcheStoreKit.framework; path = EmbeddedFrameworks/SibcheStoreKit.framework; sourceTree = "<group>"; };
 		A447B60E165D72FB009EA762 /* AppCoronaDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCoronaDelegate.h; sourceTree = SOURCE_ROOT; };
 		A447B60F165D72FB009EA762 /* AppCoronaDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppCoronaDelegate.mm; sourceTree = SOURCE_ROOT; };
 		A447B824166856F3009EA762 /* main.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.lua; path = ../Corona/main.lua; sourceTree = SOURCE_ROOT; };
@@ -179,6 +183,7 @@
 				A484117E15128D5D0074BD57 /* CoreMotion.framework in Frameworks */,
 				A484112015114F700074BD57 /* Foundation.framework in Frameworks */,
 				A484117F15128D5D0074BD57 /* GameKit.framework in Frameworks */,
+				91E705952402FCB200BBC90A /* SibcheStoreKit.framework in Frameworks */,
 				F5E548091BE7FF0200091810 /* GameController.framework in Frameworks */,
 				A484118015128D5D0074BD57 /* ImageIO.framework in Frameworks */,
 				A484118115128D5D0074BD57 /* libobjc.dylib in Frameworks */,
@@ -235,6 +240,7 @@
 		A484110E15114F700074BD57 = {
 			isa = PBXGroup;
 			children = (
+				91E705932402FC8500BBC90A /* SibcheStoreKit.framework */,
 				A4E253DA166DE7C800DCDC2C /* Plugin.xcodeproj */,
 				A484112715114F700074BD57 /* App */,
 				A447B823166856C7009EA762 /* Corona */,

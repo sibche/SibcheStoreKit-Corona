@@ -5,6 +5,7 @@
 
 #import <SibcheStoreKit/SibcheStoreKit.h>
 
+const char* getCString(NSString* text);
 // ----------------------------------------------------------------------------
 
 class PluginSibcheStoreKit
@@ -23,9 +24,6 @@ class PluginSibcheStoreKit
 		bool Initialize( CoronaLuaRef listener );
 
 	public:
-		CoronaLuaRef GetListener() const { return fListener; }
-
-	public:
 		static int Open( lua_State *L );
 
 	protected:
@@ -35,8 +33,16 @@ class PluginSibcheStoreKit
 		static Self *ToLibrary( lua_State *L );
 
 	public:
-		static int init( lua_State *L );
-		static int show( lua_State *L );
+        static int init( lua_State *L );
+        static int openUrl( lua_State *L );
+        static int loginUser( lua_State *L );
+        static int logoutUser( lua_State *L );
+        static int fetchInAppPurchasePackages( lua_State *L );
+        static int fetchInAppPurchasePackage( lua_State *L );
+        static int fetchActiveInAppPurchasePackages( lua_State *L );
+        static int purchasePackage( lua_State *L );
+        static int consumePurchasePackage( lua_State *L );
+        static int getCurrentUserData( lua_State *L );
 
 	private:
 		CoronaLuaRef fListener;
@@ -44,10 +50,8 @@ class PluginSibcheStoreKit
 
 // ----------------------------------------------------------------------------
 
-// This corresponds to the name of the library, e.g. [Lua] require "plugin.library"
 const char PluginSibcheStoreKit::kName[] = "plugin.SibcheStoreKit";
 
-// This corresponds to the event name, e.g. [Lua] event.name
 const char PluginSibcheStoreKit::kEvent[] = "SibcheStoreKitEvent";
 
 PluginSibcheStoreKit::PluginSibcheStoreKit()
@@ -80,12 +84,19 @@ PluginSibcheStoreKit::Open( lua_State *L )
 	const luaL_Reg kVTable[] =
 	{
 		{ "init", init },
-		{ "show", show },
+        { "openUrl", openUrl },
+        { "loginUser", loginUser },
+        { "logoutUser", logoutUser },
+        { "fetchInAppPurchasePackages", fetchInAppPurchasePackages },
+        { "fetchInAppPurchasePackage", fetchInAppPurchasePackage },
+        { "fetchActiveInAppPurchasePackages", fetchActiveInAppPurchasePackages },
+        { "purchasePackage", purchasePackage },
+        { "consumePurchasePackage", consumePurchasePackage },
+        { "getCurrentUserData", getCurrentUserData },
 
 		{ NULL, NULL }
 	};
 
-	// Set library as upvalue for each library function
 	Self *library = new Self;
 	CoronaLuaPushUserdata( L, library, kMetatableName );
 
@@ -97,12 +108,6 @@ PluginSibcheStoreKit::Open( lua_State *L )
 int
 PluginSibcheStoreKit::Finalizer( lua_State *L )
 {
-	Self *library = (Self *)CoronaLuaToUserdata( L, 1 );
-
-	CoronaLuaDeleteRef( L, library->GetListener() );
-
-	delete library;
-
 	return 0;
 }
 
@@ -114,65 +119,392 @@ PluginSibcheStoreKit::ToLibrary( lua_State *L )
 	return library;
 }
 
-// [Lua] library.init( listener )
 int
 PluginSibcheStoreKit::init( lua_State *L )
 {
-	int listenerIndex = 1;
-
-	if ( CoronaLuaIsListener( L, listenerIndex, kEvent ) )
-	{
-		Self *library = ToLibrary( L );
-
-		CoronaLuaRef listener = CoronaLuaNewRef( L, listenerIndex );
-		library->Initialize( listener );
-	}
-
-	return 0;
+    const char *apiKey = lua_tostring( L, 1 );
+    const char *scheme = lua_tostring( L, 2 );
+    if (!apiKey || !scheme) {
+        NSLog(@"Parameters of api does not filled correctly (init)");
+        return -1;
+    }
+    
+    [SibcheStoreKit initWithApiKey:[NSString stringWithCString:apiKey encoding:NSASCIIStringEncoding] withScheme:[NSString stringWithCString:scheme encoding:NSASCIIStringEncoding]];
+    
+    return 0;
 }
 
-// [Lua] library.show( word )
 int
-PluginSibcheStoreKit::show( lua_State *L )
+PluginSibcheStoreKit::openUrl( lua_State *L )
 {
-	NSString *message = @"Error: Could not display UIReferenceLibraryViewController. This feature requires iOS 5 or later.";
+    const char *url = lua_tostring( L, 1 );
+    if (!url) {
+        NSLog(@"Parameters of api does not filled correctly (openUrl)");
+        return 0;
+    }
+
+    [SibcheStoreKit openUrl:[NSURL URLWithString:[NSString stringWithCString:url encoding:NSASCIIStringEncoding]] options:nil];
     
-    NSLog(@"Going to init sibcheStoreKit");
-    [SibcheStoreKit initWithApiKey:@"Test" withScheme:@"Test"];
-	
-	if ( [UIReferenceLibraryViewController class] )
-	{
-		id<CoronaRuntime> runtime = (id<CoronaRuntime>)CoronaLuaGetContext( L );
+    return 0;
+}
 
-		const char kDefaultWord[] = "corona";
-		const char *word = lua_tostring( L, 1 );
-		if ( ! word )
-		{
-			word = kDefaultWord;
-		}
+int
+PluginSibcheStoreKit::loginUser( lua_State *L )
+{
+    int listenerIndex = 1;
+    if ( CoronaLuaIsListener( L, listenerIndex, kEvent ) )
+    {
+        CoronaLuaRef listener = CoronaLuaNewRef( L, listenerIndex );
 
-		UIReferenceLibraryViewController *controller = [[[UIReferenceLibraryViewController alloc] initWithTerm:[NSString stringWithUTF8String:word]] autorelease];
+        [SibcheStoreKit loginUser:^(BOOL isSuccessful, SibcheError *error, NSString *userName, NSString *userId) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CoronaLuaNewEvent( L, "SibcheStoreKit.loginUser" );
+                
+                lua_pushboolean(L, isSuccessful);
+                lua_setfield(L, -2, "isSuccessful");
+                
+                if (error) {
+                    lua_pushnumber(L, [error.errorCode doubleValue]);
+                    lua_setfield(L, -2, "errorCode");
 
-		// Present the controller modally.
-		[runtime.appViewController presentViewController:controller animated:YES completion:nil];
+                    lua_pushnumber(L, [error.statusCode doubleValue]);
+                    lua_setfield(L, -2, "errorStatusCode");
 
-		message = @"Success. Displaying UIReferenceLibraryViewController for 'corona'.";
-	}
+                    lua_pushstring(L, getCString(error.message));
+                    lua_setfield(L, -2, "errorMessage");
+                }
+                
+                lua_pushstring(L, getCString(userName));
+                lua_setfield(L, -2, "userName");
 
-	Self *library = ToLibrary( L );
+                lua_pushstring(L, getCString(userId));
+                lua_setfield(L, -2, "userId");
 
-	// Create event and add message to it
-	CoronaLuaNewEvent( L, kEvent );
-	lua_pushstring( L, [message UTF8String] );
-	lua_setfield( L, -2, "message" );
+                CoronaLuaDispatchEvent( L, listener, 0 );
 
-	// Dispatch event to library's listener
-	CoronaLuaDispatchEvent( L, library->GetListener(), 0 );
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    CoronaLuaDeleteRef(L, listener);
+                });
+            });
+        }];
+    }
+    
+    return 0;
+}
 
-	return 0;
+int
+PluginSibcheStoreKit::logoutUser( lua_State *L )
+{
+    int listenerIndex = 1;
+    if ( CoronaLuaIsListener( L, listenerIndex, kEvent ) )
+    {
+        CoronaLuaRef listener = CoronaLuaNewRef( L, listenerIndex );
+        
+        [SibcheStoreKit logoutUser:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CoronaLuaNewEvent( L, "SibcheStoreKit.logoutUser" );
+                CoronaLuaDispatchEvent( L, listener, 0 );
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    CoronaLuaDeleteRef(L, listener);
+                });
+            });
+        }];
+    }
+    
+    return 0;
+}
+
+int
+PluginSibcheStoreKit::fetchInAppPurchasePackages( lua_State *L )
+{
+    int listenerIndex = 1;
+    if ( CoronaLuaIsListener( L, listenerIndex, kEvent ) )
+    {
+        CoronaLuaRef listener = CoronaLuaNewRef( L, listenerIndex );
+        
+        [SibcheStoreKit fetchInAppPurchasePackages:^(BOOL isSuccessful, SibcheError *error, NSArray *packagesArray) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CoronaLuaNewEvent( L, "SibcheStoreKit.fetchInAppPurchasePackages" );
+                
+                lua_pushboolean(L, isSuccessful);
+                lua_setfield(L, -2, "isSuccessful");
+                
+                if (error) {
+                    lua_pushnumber(L, [error.errorCode doubleValue]);
+                    lua_setfield(L, -2, "errorCode");
+                    
+                    lua_pushnumber(L, [error.statusCode doubleValue]);
+                    lua_setfield(L, -2, "errorStatusCode");
+                    
+                    lua_pushstring(L, getCString(error.message));
+                    lua_setfield(L, -2, "errorMessage");
+                }
+                
+                NSMutableString* jsonString = [[NSMutableString alloc] initWithString:@""];
+                for (SibchePackage* item in packagesArray) {
+                    [jsonString appendFormat:@"%@, ", [item toJson]];
+                }
+                jsonString = [NSMutableString stringWithFormat:@"[%@]", jsonString];
+
+                lua_pushstring(L, getCString(jsonString));
+                lua_setfield(L, -2, "packagesArray");
+
+                CoronaLuaDispatchEvent( L, listener, 0 );
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    CoronaLuaDeleteRef(L, listener);
+                });
+            });
+        }];
+    }
+    
+    return 0;
+}
+
+int
+PluginSibcheStoreKit::fetchInAppPurchasePackage( lua_State *L )
+{
+    int listenerIndex = 2;
+
+    if ( CoronaLuaIsListener( L, listenerIndex, kEvent ) )
+    {
+        CoronaLuaRef listener = CoronaLuaNewRef( L, listenerIndex );
+
+        const char *packageId = lua_tostring( L, 1 );
+        if (!packageId)
+        {
+            NSLog(@"Parameters of api does not filled correctly (fetchInAppPurchasePackage)");
+            return 0;
+        }
+
+        [SibcheStoreKit fetchInAppPurchasePackage:[NSString stringWithCString:packageId encoding:NSASCIIStringEncoding] withPackagesCallback:^(BOOL isSuccessful, SibcheError *error, SibchePackage *package) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CoronaLuaNewEvent( L, "SibcheStoreKit.fetchInAppPurchasePackage" );
+                
+                lua_pushboolean(L, isSuccessful);
+                lua_setfield(L, -2, "isSuccessful");
+                
+                if (error) {
+                    lua_pushnumber(L, [error.errorCode doubleValue]);
+                    lua_setfield(L, -2, "errorCode");
+                    
+                    lua_pushnumber(L, [error.statusCode doubleValue]);
+                    lua_setfield(L, -2, "errorStatusCode");
+                    
+                    lua_pushstring(L, getCString(error.message));
+                    lua_setfield(L, -2, "errorMessage");
+                }
+                
+                lua_pushstring(L, getCString([package toJson]));
+                lua_setfield(L, -2, "package");
+                
+                CoronaLuaDispatchEvent( L, listener, 0 );
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    CoronaLuaDeleteRef(L, listener);
+                });
+            });
+        }];
+    }
+    
+    return 0;
+}
+
+int
+PluginSibcheStoreKit::fetchActiveInAppPurchasePackages( lua_State *L )
+{
+    int listenerIndex = 1;
+    if ( CoronaLuaIsListener( L, listenerIndex, kEvent ) )
+    {
+        CoronaLuaRef listener = CoronaLuaNewRef( L, listenerIndex );
+        
+        [SibcheStoreKit fetchActiveInAppPurchasePackages:^(BOOL isSuccessful, SibcheError *error, NSArray *purchasePackagesArray) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CoronaLuaNewEvent( L, "SibcheStoreKit.fetchActiveInAppPurchasePackages" );
+                
+                lua_pushboolean(L, isSuccessful);
+                lua_setfield(L, -2, "isSuccessful");
+                
+                if (error) {
+                    lua_pushnumber(L, [error.errorCode doubleValue]);
+                    lua_setfield(L, -2, "errorCode");
+                    
+                    lua_pushnumber(L, [error.statusCode doubleValue]);
+                    lua_setfield(L, -2, "errorStatusCode");
+                    
+                    lua_pushstring(L, getCString(error.message));
+                    lua_setfield(L, -2, "errorMessage");
+                }
+                
+                NSMutableString* jsonString = [[NSMutableString alloc] initWithString:@""];
+                for (SibchePurchasePackage* item in purchasePackagesArray) {
+                    [jsonString appendFormat:@"%@, ", [item toJson]];
+                }
+                jsonString = [NSMutableString stringWithFormat:@"[%@]", jsonString];
+                
+                lua_pushstring(L, getCString(jsonString));
+                lua_setfield(L, -2, "purchasePackagesArray");
+                
+                CoronaLuaDispatchEvent( L, listener, 0 );
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    CoronaLuaDeleteRef(L, listener);
+                });
+            });
+        }];
+    }
+    
+    return 0;
+}
+
+int
+PluginSibcheStoreKit::purchasePackage( lua_State *L )
+{
+    int listenerIndex = 2;
+    if ( CoronaLuaIsListener( L, listenerIndex, kEvent ) )
+    {
+        CoronaLuaRef listener = CoronaLuaNewRef( L, listenerIndex );
+        
+        const char *packageId = lua_tostring( L, 1 );
+        if (!packageId)
+        {
+            NSLog(@"Parameters of api does not filled correctly (purchasePackage)");
+            return 0;
+        }
+
+        [SibcheStoreKit purchasePackage:[NSString stringWithCString:packageId encoding:NSASCIIStringEncoding] withCallback:^(BOOL isSuccessful, SibcheError *error, SibchePurchasePackage *purchasePackage) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CoronaLuaNewEvent( L, "SibcheStoreKit.purchasePackage" );
+                
+                lua_pushboolean(L, isSuccessful);
+                lua_setfield(L, -2, "isSuccessful");
+                
+                if (error) {
+                    lua_pushnumber(L, [error.errorCode doubleValue]);
+                    lua_setfield(L, -2, "errorCode");
+                    
+                    lua_pushnumber(L, [error.statusCode doubleValue]);
+                    lua_setfield(L, -2, "errorStatusCode");
+                    
+                    lua_pushstring(L, getCString(error.message));
+                    lua_setfield(L, -2, "errorMessage");
+                }
+                
+                lua_pushstring(L, getCString([purchasePackage toJson]));
+                lua_setfield(L, -2, "purchasePackage");
+                
+                CoronaLuaDispatchEvent( L, listener, 0 );
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    CoronaLuaDeleteRef(L, listener);
+                });
+            });
+        }];
+    }
+    
+    return 0;
+}
+
+int
+PluginSibcheStoreKit::consumePurchasePackage( lua_State *L )
+{
+    int listenerIndex = 2;
+    if ( CoronaLuaIsListener( L, listenerIndex, kEvent ) )
+    {
+        CoronaLuaRef listener = CoronaLuaNewRef( L, listenerIndex );
+        
+        const char *purchasePackageId = lua_tostring( L, 1 );
+        if (!purchasePackageId)
+        {
+            NSLog(@"Parameters of api does not filled correctly (consumePurchasePackage)");
+            return 0;
+        }
+        
+        [SibcheStoreKit consumePurchasePackage:[NSString stringWithCString:purchasePackageId encoding:NSASCIIStringEncoding] withCallback:^(BOOL isSuccessful, SibcheError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CoronaLuaNewEvent( L, "SibcheStoreKit.consumePurchasePackage" );
+                
+                lua_pushboolean(L, isSuccessful);
+                lua_setfield(L, -2, "isSuccessful");
+                
+                if (error) {
+                    lua_pushnumber(L, [error.errorCode doubleValue]);
+                    lua_setfield(L, -2, "errorCode");
+                    
+                    lua_pushnumber(L, [error.statusCode doubleValue]);
+                    lua_setfield(L, -2, "errorStatusCode");
+                    
+                    lua_pushstring(L, getCString(error.message));
+                    lua_setfield(L, -2, "errorMessage");
+                }
+
+                CoronaLuaDispatchEvent( L, listener, 0 );
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    CoronaLuaDeleteRef(L, listener);
+                });
+            });
+        }];
+    }
+    
+    return 0;
+}
+
+int
+PluginSibcheStoreKit::getCurrentUserData( lua_State *L )
+{
+    int listenerIndex = 1;
+    if ( CoronaLuaIsListener( L, listenerIndex, kEvent ) )
+    {
+        CoronaLuaRef listener = CoronaLuaNewRef( L, listenerIndex );
+        
+        [SibcheStoreKit getCurrentUserData:^(BOOL isSuccessful, SibcheError *error, LoginStatusType loginStatus, NSString *userCellphoneNumber, NSString *userId) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CoronaLuaNewEvent( L, "SibcheStoreKit.getCurrentUserData" );
+                
+                lua_pushboolean(L, isSuccessful);
+                lua_setfield(L, -2, "isSuccessful");
+                
+                if (error) {
+                    lua_pushnumber(L, [error.errorCode doubleValue]);
+                    lua_setfield(L, -2, "errorCode");
+                    
+                    lua_pushnumber(L, [error.statusCode doubleValue]);
+                    lua_setfield(L, -2, "errorStatusCode");
+                    
+                    lua_pushstring(L, getCString(error.message));
+                    lua_setfield(L, -2, "errorMessage");
+                }
+
+                lua_pushnumber(L, loginStatus);
+                lua_setfield(L, -2, "loginStatus");
+
+                lua_pushstring(L, getCString(userCellphoneNumber));
+                lua_setfield(L, -2, "userCellphoneNumber");
+
+                lua_pushstring(L, getCString(userId));
+                lua_setfield(L, -2, "userId");
+
+                CoronaLuaDispatchEvent( L, listener, 0 );
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    CoronaLuaDeleteRef(L, listener);
+                });
+            });
+        }];
+    }
+    
+    return 0;
 }
 
 // ----------------------------------------------------------------------------
+
+const char* getCString(NSString* text){
+    if(!text)
+        text = @"";
+    return [text cStringUsingEncoding:NSUTF8StringEncoding];
+}
 
 CORONA_EXPORT int luaopen_plugin_SibcheStoreKit( lua_State *L )
 {
