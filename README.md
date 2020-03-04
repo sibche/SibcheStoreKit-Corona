@@ -1,4 +1,5 @@
-Sibche StoreKit Coron
+Sibche StoreKit Corona
+
 پلاگین کرونا سیبچه
 
 برای راهنمای نصب، لطفا به [این آدرس](https://docs.sibche.com/?lua#f6e7c5b604) مراجعه نمایید
