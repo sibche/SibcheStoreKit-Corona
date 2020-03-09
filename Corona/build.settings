@@ -40,13 +40,6 @@ settings =
 	--
 	-- Plugins section
 	--
-	plugins =
-	{
-		["plugin.OneSignal"] =
-		{
-			publisherId = "com.onesignal",
-		}
-	},
 
 	--
 	-- Project section
