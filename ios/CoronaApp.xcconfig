@@ -5,3 +5,14 @@
 #include "CoronaNative.xcconfig"
 
 OTHER_LDFLAGS = $(inherited) $(CORONA_CUSTOM_LDFLAGS) -all_load -lplayer
+// device entries
+OTHER_LDFLAGS[sdk=iphonesimulator*] = $(inherited) -lplugin_SibcheStoreKit -framework SibcheStoreKit
+LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*] = $(inherited)  "/Users/mehdi/Library/Application Support/Corona/Native Plugins/iphone-sim/plugin.SibcheStoreKit_com.sibche"
+FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*] = $(inherited)  "/Users/mehdi/Library/Application Support/Corona/Native Plugins/iphone-sim/plugin.SibcheStoreKit_com.sibche"
+CORONA_PLUGIN_RESOURCES[sdk=iphonesimulator*] =/Users/mehdi/Library/Application Support/Corona/Native Plugins/iphone-sim/plugin.SibcheStoreKit_com.sibche/resources
+
+// simulator entries
+OTHER_LDFLAGS[sdk=iphoneos*] = $(inherited) -lplugin_SibcheStoreKit -framework SibcheStoreKit
+LIBRARY_SEARCH_PATHS[sdk=iphoneos*] = $(inherited)  "/Users/mehdi/Library/Application Support/Corona/Native Plugins/iphone/plugin.SibcheStoreKit_com.sibche"
+FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*] = $(inherited)  "/Users/mehdi/Library/Application Support/Corona/Native Plugins/iphone/plugin.SibcheStoreKit_com.sibche"
+CORONA_PLUGIN_RESOURCES[sdk=iphoneos*] =/Users/mehdi/Library/Application Support/Corona/Native Plugins/iphone/plugin.SibcheStoreKit_com.sibche/resources

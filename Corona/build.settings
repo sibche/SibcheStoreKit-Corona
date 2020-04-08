@@ -40,6 +40,20 @@ settings =
 	--
 	-- Plugins section
 	--
+	plugins =
+    {
+        ["plugin.SibcheStoreKit"] =
+        {
+            publisherId = "com.sibche",
+            supportedPlatforms = { 
+                iphone = { url="https://raw.githubusercontent.com/sibche/SibcheStoreKit-Corona/master/iphone.tgz" },
+                ["iphone-sim"] = { url="https://raw.githubusercontent.com/sibche/SibcheStoreKit-Corona/master/iphone-sim.tgz" },
+                android = false,
+                macos = false,
+                win32 = false
+            },
+        },
+    },
 
 	--
 	-- Project section

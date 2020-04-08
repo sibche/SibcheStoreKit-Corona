@@ -21,8 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		911564122416C585000A5021 /* SibcheStoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 911564102416C577000A5021 /* SibcheStoreKit.framework */; };
-		911564132416C585000A5021 /* SibcheStoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 911564102416C577000A5021 /* SibcheStoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9195FB8A23FE76E6007BBE23 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8523FE76E6007BBE23 /* MainWindow.xib */; };
 		9195FB8B23FE76E6007BBE23 /* CoronaResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8623FE76E6007BBE23 /* CoronaResources.bundle */; };
 		9195FB8C23FE76E6007BBE23 /* Corona3rdPartyLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9195FB8723FE76E6007BBE23 /* Corona3rdPartyLicenses.txt */; };
@@ -69,16 +67,6 @@
 		F5E548091BE7FF0200091810 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E548081BE7FF0200091810 /* GameController.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		9115640E2416C566000A5021 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9115640A2416C566000A5021 /* Plugin.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A4E253B6166D6FB300DCDC2C;
-			remoteInfo = plugin_SibcheStoreKit;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		91E7058E2402B3A300BBC90A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -86,7 +74,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				911564132416C585000A5021 /* SibcheStoreKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,8 +81,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9115640A2416C566000A5021 /* Plugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Plugin.xcodeproj; sourceTree = "<group>"; };
-		911564102416C577000A5021 /* SibcheStoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SibcheStoreKit.framework; path = EmbeddedFrameworks/SibcheStoreKit.framework; sourceTree = "<group>"; };
 		9195FB8523FE76E6007BBE23 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		9195FB8623FE76E6007BBE23 /* CoronaResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CoronaResources.bundle; sourceTree = "<group>"; };
 		9195FB8723FE76E6007BBE23 /* Corona3rdPartyLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Corona3rdPartyLicenses.txt; sourceTree = "<group>"; };
@@ -190,21 +175,12 @@
 				A484118A15128D5D0074BD57 /* SystemConfiguration.framework in Frameworks */,
 				A4E2537F166AE3DC00DCDC2C /* Twitter.framework in Frameworks */,
 				A484111E15114F700074BD57 /* UIKit.framework in Frameworks */,
-				911564122416C585000A5021 /* SibcheStoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9115640B2416C566000A5021 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9115640F2416C566000A5021 /* libplugin_SibcheStoreKit.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		9195FB8323FE76E6007BBE23 /* resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,8 +215,6 @@
 		A484110E15114F700074BD57 = {
 			isa = PBXGroup;
 			children = (
-				911564102416C577000A5021 /* SibcheStoreKit.framework */,
-				9115640A2416C566000A5021 /* Plugin.xcodeproj */,
 				A484112715114F700074BD57 /* App */,
 				A447B823166856C7009EA762 /* Corona */,
 				A447B66F16670015009EA762 /* CoronaNative */,
@@ -363,17 +337,12 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = A484110E15114F700074BD57;
 			productRefGroup = A484111A15114F700074BD57 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 9115640B2416C566000A5021 /* Products */;
-					ProjectRef = 9115640A2416C566000A5021 /* Plugin.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				A484111815114F700074BD57 /* App */,
@@ -381,16 +350,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		9115640F2416C566000A5021 /* libplugin_SibcheStoreKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libplugin_SibcheStoreKit.a;
-			remoteRef = 9115640E2416C566000A5021 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A484111715114F700074BD57 /* Resources */ = {
