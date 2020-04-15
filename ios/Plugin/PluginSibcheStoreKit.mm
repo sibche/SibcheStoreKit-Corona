@@ -129,7 +129,7 @@ PluginSibcheStoreKit::init( lua_State *L )
         return -1;
     }
     
-    [SibcheStoreKit initWithApiKey:[NSString stringWithCString:apiKey encoding:NSASCIIStringEncoding] withScheme:[NSString stringWithCString:scheme encoding:NSASCIIStringEncoding]];
+    [SibcheStoreKit initWithApiKey:[NSString stringWithCString:apiKey encoding:NSASCIIStringEncoding] withScheme:[NSString stringWithCString:scheme encoding:NSASCIIStringEncoding] withStore:@"SDK-CORONA"];
     
     return 0;
 }
